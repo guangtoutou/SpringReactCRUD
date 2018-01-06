@@ -12,16 +12,16 @@ public class Employee {
     private @Id
     @GeneratedValue
     Long id;
-    private String name;
-    private int age;
-    private int years;
+    private String firstName;
+    private String lastName;
+    private String description;
 
     private Employee() {
     }
 
-    public Employee(String name, int age, int years) {
-        this.name = name;
-        this.age = age;
-        this.years = years;
+    public Employee(String firstName, String lastName, String description) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.description = description;
     }
 }
