@@ -12,6 +12,7 @@
 <script src="https://fb.me/react-15.0.1.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/babel">
     var Employee = React.createClass({
@@ -21,6 +22,9 @@
                     <td>{this.props.employee.name}</td>
                     <td>{this.props.employee.age}</td>
                     <td>{this.props.employee.years}</td>
+                    <td>
+                        <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
+                    </td>
                 </tr>);
         }
     });
@@ -42,18 +46,34 @@
         }
     });
 
-    var EMPLOYEES = [
-        {name: 'Joe Biden', age: 45, years: 5},
-        {name: 'President Obama', age: 54, years: 8},
-        {name: 'Crystal Mac', age: 34, years: 12},
-        {name: 'James Henry', age: 33, years: 2}
-    ];
+
+    var App = React.createClass({
+
+        loadEmployeesFromServer: function () {
+            var self = this;
+            $.ajax({
+                url: "http://localhost:8080/api/employees"
+            }).then(function (data) {
+                self.setState({employees: data._embedded.employees});
+            });
+        },
+
+        getInitialState: function () {
+            return {employees: []};
+        },
+
+        componentDidMount: function () {
+            this.loadEmployeesFromServer();
+        },
+
+        render() {
+            return ( <EmployeeTable employees={this.state.employees}/> );
+        }
+    });
     ReactDOM.render(
-        <EmployeeTable employees={EMPLOYEES}/>, document.getElementById('root')
+        <App/>, document.getElementById('root')
     );
 </script>
-
-This is James
 
 </body>
 </html>
