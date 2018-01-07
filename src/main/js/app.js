@@ -57,7 +57,7 @@ class Employee extends React.Component{
             <tr>
             <td>{this.props.employee.firstName}</td>
         <td>{this.props.employee.lastName}</td>
-        <td>{this.props.employee.description}</td>
+        <td>{this.props.employee.description} hello world</td>
         </tr>
     )
     }
